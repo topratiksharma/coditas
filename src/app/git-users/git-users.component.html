@@ -1,0 +1,28 @@
+<form novalidate [formGroup]="userListForm">
+    <div>
+        <mat-toolbar color="primary">
+            <mat-form-field>
+                <mat-select placeholder="Sort By Name" formControlName="sortList">
+                    <mat-option *ngFor="let type of sortType" [value]="type.value">
+                        {{ type.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Search" formControlName="searchCriteria">
+            </mat-form-field>
+            <button mat-raised-button color="default" type="submit" (click)="getUsers()">Click me!</button>
+        </mat-toolbar>
+    </div>
+    <mat-card *ngFor="let user of userList?.items">
+        <img mat-card-image src="{{user.avatar_url}}" alt="Photo of {{user.login}}">
+        {{user.login}}
+        Profile URL : <a href="{{user.url}}">{{user.url}}</a>
+        <mat-card-content>
+
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button>Details</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
