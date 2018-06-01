@@ -14,11 +14,11 @@ export class HttpClientService {
     url = 'https://api.github.com/search/users?q=';
     url1 = 'https://api.github.com/users/{username​}/repos';
 
-    get(searchText) : Observable<any> {
+    get(searchText): Observable<any> {
         return this.http.get(this.url + searchText);
     }
 
-    getById(id) {
-        return this.http.get(this.url1.replace('{username​}',id));
+    getById(id): Observable<any> {
+        return this.http.get(this.url1.replace('{username​}', id));
     }
 }

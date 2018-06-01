@@ -1,31 +1,75 @@
-<form novalidate [formGroup]="userListForm">
-    <mat-toolbar color="primary">
-        <div>
-            <mat-form-field>
-                <mat-select placeholder="Sort By Name" formControlName="sortList">
-                    <mat-option *ngFor="let type of sortType" [value]="type.value">
-                        {{ type.name }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+<nav class="navbar navbar-expand-sm bg-primary navbar-light">
+    <form class="form-inline center form-group" [formGroup]="userListForm" novalidate>
+        <div class="input-group">
+            <select placeholder="Sort By Name" formControlName="sortList"
+                    class="margin-right" (change)="sort()">
+                <option selected value="">Select</option>
+                <option *ngFor="let type of sortType" [value]="type.value">
+                    {{ type.name }}
+                </option>
+            </select>
 
-            <mat-form-field>
-                <input matInput placeholder="Search" formControlName="searchCriteria">
-            </mat-form-field>
-            <button mat-raised-button color="default" type="submit" (click)="getUsers()">Click me!</button>
+            <input type="text" class="form-control" placeholder="Search" formControlName="searchCriteria">
+            <div class="input-group-prepend">
+                <button class="input-group-text form-control" (click)="getUsers()">@</button>
+            </div>
         </div>
-    </mat-toolbar>
+    </form>
+</nav>
+<br>
 
-    <mat-card *ngFor="let user of userList?.items">
-        <img mat-card-image src="{{user.avatar_url}}" alt="Photo of {{user.login}}">
-        {{user.login}}
-        <br/>
-        Profile URL : <a href="{{user.url}}">{{user.url}}</a>
-        <mat-card-content>
+<div class="center">
+    <label *ngIf="userList?.total_count">Total results : </label>{{userList?.total_count}}
+    <div class="container">
+        <div class="card" *ngFor="let user of userList?.items" id="accordion">
+            <div class="card-header">
+                <div class="row">
+                    <img src="{{user.avatar_url}}" alt="Photo of {{user.login}}">
+                    <h3>{{user.login}}</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                Profile URL : <a href="{{user.url}}" target="_blank">{{user.url}}</a>
+                <p class="card-text">Type : {{user.type}}</p>
+                <p class="card-text">Score : {{user.score}}</p>
+                <!--<button type="button"-->
+                <!--(click)="getDetails(user.login, 'id_'+ user.id)"-->
+                <!--data-toggle="collapse" [attr.data-target]="'#id_'+ user.id"-->
+                <!--class="btn btn-outline-primary">-->
+                <!--Details-->
+                <!--</button>-->
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        data-toggle="collapse"
+                        [attr.data-target]="'#id_'+ user.id"
+                        aria-expanded="false"
+                        [attr.aria-controls]="'id_'+ user.id"
+                        (click)="getDetails(user.login)">
+                    Details
+                </button>
+                <div id="id_{{user.id}}"
+                     class="collapse"
+                     data-parent="#accordion"
+                     aria-expanded="false">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr *ngFor="let repo of repositories">
+                            <td>{{repo.full_name}}</td>
+                            <td>{{repo.language}}</td>
+                        </tr>
+                        <tr *ngIf="repositories?.length < 1">
+                            <h4>No repositories</h4>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button>Details</button>
-        </mat-card-actions>
-    </mat-card>
-</form>
+<ol>
+    <li *ngFor="let pending of pendingList">
+        {{pending}}
+    </li>
+</ol>
