@@ -30,7 +30,6 @@ export class GitUsersComponent implements OnInit {
     }
 
     getDetails(id) {
-        this.repositories = '';
         const _this = this;
         this.gitUserService.getUserDetail(id).subscribe(function (resp) {
             _this.repositories = resp;
