@@ -1,7 +1,7 @@
 .center {
-    margin-left: 25%;
-    padding: 10px;
-    width: 500px;
+    margin-left: 33%;
+    padding: 15px 0 0 0;
+    width: 515px;
 }
 
 .bg-primary {
@@ -16,9 +16,28 @@ img {
     width: 75px;
     height: 75px;
     border-radius: 37px;
-    margin: 10px;
+    /*margin: 10px;*/
 }
 
 h3 {
-    margin: 15px 0 0 15px;
+    margin: 15px 0 0 0;
+}
+
+input {
+    border-radius: 5px !important;
+    float: right;
+    margin-left: 65px;
+}
+
+select {
+    width: 200px;
+    padding-right: 50px;
+}
+
+.margin-below {
+    margin-bottom: 10px;
+}
+
+.button-margin {
+    margin-left: 142px
 }

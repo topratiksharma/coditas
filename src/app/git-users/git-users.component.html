@@ -20,56 +20,53 @@
 
 <div class="center">
     <label *ngIf="userList?.total_count">Total results : </label>{{userList?.total_count}}
-    <div class="container">
-        <div class="card" *ngFor="let user of userList?.items" id="accordion">
-            <div class="card-header">
-                <div class="row">
-                    <img src="{{user.avatar_url}}" alt="Photo of {{user.login}}">
-                    <h3>{{user.login}}</h3>
-                </div>
-            </div>
+    <div id="accordion">
+        <div class="card margin-below" *ngFor="let user of userList?.items">
             <div class="card-body">
-                Profile URL : <a href="{{user.url}}" target="_blank">{{user.url}}</a>
-                <p class="card-text">Type : {{user.type}}</p>
-                <p class="card-text">Score : {{user.score}}</p>
-                <!--<button type="button"-->
-                <!--(click)="getDetails(user.login, 'id_'+ user.id)"-->
-                <!--data-toggle="collapse" [attr.data-target]="'#id_'+ user.id"-->
-                <!--class="btn btn-outline-primary">-->
-                <!--Details-->
-                <!--</button>-->
-                <button type="button"
-                        class="btn btn-outline-primary"
-                        data-toggle="collapse"
-                        [attr.data-target]="'#id_'+ user.id"
-                        aria-expanded="false"
-                        [attr.aria-controls]="'id_'+ user.id"
-                        (click)="getDetails(user.login)">
-                    Details
-                </button>
-                <div id="id_{{user.id}}"
-                     class="collapse"
-                     data-parent="#accordion"
-                     aria-expanded="false">
-                    <table class="table table-striped">
-                        <tbody>
-                        <tr *ngFor="let repo of repositories">
-                            <td>{{repo.full_name}}</td>
-                            <td>{{repo.language}}</td>
-                        </tr>
-                        <tr *ngIf="repositories?.length < 1">
-                            <h4>No repositories</h4>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="row">
+                    <div class="col-3 col-md-3 col-sm-3 col-lg-3">
+                        <img src="{{user.avatar_url}}" alt="Photo of {{user.login}}">
+                    </div>
+                    <div class="col-9 col-md-9 col-sm-9 col-lg-9">
+                        <div class="row">
+                            <h3>{{user.login}}</h3>
+                            Profile URL : {{user.url}}
+                        </div>
+                        <div class="row">
+                            <div>
+                                Type : {{user.type}}
+                                <br>
+                                Score : {{user.score}}
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-outline-primary button-margin" data-toggle="collapse"
+                                        (click)="getDetails(user.login)"
+                                        [attr.data-target]="'#id_'+ user.id" aria-expanded="false"
+                                        [attr.aria-controls]="'id_'+ user.id">
+                                    Details
+                                </button>
+                            </div>
+                        </div>
+                        <div  id="id_{{user.id}}" class="collapse row" data-parent="#accordion" aria-expanded="false">
+                            <table class="table table-striped table-responsive">
+                                <tbody>
+                                <tr *ngFor="let repo of repositories">
+                                    <td>{{repo.full_name}}</td>
+                                    <td>{{repo.language}}</td>
+                                </tr>
+                                <tr *ngIf="repositories?.length < 1">
+                                    <h4>No repositories</h4>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<ol>
-    <li *ngFor="let pending of pendingList">
-        {{pending}}
-    </li>
-</ol>
+        <ol>
+            <li *ngFor="let pending of pendingList">
+                {{pending}}
+            </li>
+        </ol>

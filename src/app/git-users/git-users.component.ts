@@ -15,9 +15,13 @@ export class GitUsersComponent implements OnInit {
     repositories;
 
     pendingList = [
-        'Method naming', 'Design', 'Icons',
-        'input box round', 'unDefined check',
-        'Move static content to constant file'];
+        'Method naming via jsDoc',
+        'Designing',
+        'Icons',
+        'input box round',
+        'unDefined check',
+        'Move static content to constant file',
+        'Details to Collapse when open'];
 
     public sortType = [
         {value: 'nameAsc', name: 'Name (A - Z)'},
@@ -34,8 +38,6 @@ export class GitUsersComponent implements OnInit {
             sortList: [''],
             searchCriteria: ['', [Validators.required]]
         });
-
-        this.getUsers();
     }
 
     getDetails(id) {
@@ -47,7 +49,7 @@ export class GitUsersComponent implements OnInit {
 
     getUsers() {
         const _this = this;
-        this.gitUserService.getGitUsers('adsdas').subscribe(function (resp) {
+        this.gitUserService.getGitUsers(this.userListForm.value.searchCriteria).subscribe(function (resp) {
             _this.userList = resp;
         });
     }
