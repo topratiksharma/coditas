@@ -1,3 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
+@font-face {
+    font-family: Lato-Black;
+    src: url('/assets/fonts/Lato-Black.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: Lato-BlackItalic;
+    src: url('/assets/fonts/Lato-BlackItalic.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: Lato-Black;
+    src: url('/assets/fonts/Lato-Bold.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: Lato-BoldItalic;
+    src: url('/assets/fonts/Lato-BoldItalic.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: Lato-Italic;
+    src: url('/assets/fonts/Lato-Italic.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: Lato-LightItalic;
+    src: url('/assets/fonts/Lato-LightItalic.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: Lato-Regular;
+    src: url('/assets/fonts/Lato-Regular.ttf') format("truetype");
+}
+
+body {
+    font-family: Lato-Regular;
+}

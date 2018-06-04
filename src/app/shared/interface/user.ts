@@ -11,7 +11,7 @@ export interface User {
     organizations_url: string
     received_events_url: string
     repos_url: string
-    score: Number
+    score: number
     site_admin: boolean
     starred_url: string
     subscriptions_url: string

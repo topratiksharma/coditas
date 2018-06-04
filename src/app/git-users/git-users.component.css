@@ -1,22 +1,47 @@
-mat-toolbar {
-    height: 100px;
+.center {
+    margin-left: 33%;
+    padding: 15px 0 0 0;
+    width: 515px;
 }
 
-div {
-    margin-left: 25%;
-    /*width: 50%;*/
-    padding: 10px;
+.bg-primary {
+    background-color: #0F77D2 !important;
 }
 
-img {
-    width: 70px;
-    border-radius: 30px;
+.margin-right {
+    margin-right: 10px;
 }
 
-mat-card {
-    width: 300px;
+.image {
+    width: 75px;
+    height: 75px;
+    border-radius: 37px;
 }
 
-mat-form-field {
-    padding: 10px;
+h3 {
+    margin: 15px 0 0 0;
+}
+
+input {
+    border-radius: 5px !important;
+    float: right;
+    margin-left: 65px;
+}
+
+select {
+    width: 200px;
+    padding-right: 50px;
+}
+
+.margin-below {
+    margin-bottom: 10px;
+}
+
+.button-margin {
+    margin-left: 142px;
+    margin-top: 2px;
+}
+
+pagination-controls {
+float: right;
 }

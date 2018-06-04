@@ -12,8 +12,8 @@ export class GitUsersService {
     getGitUsers(searchText): Observable<UserList> {
         return this.httpService.get(searchText);
     }
-    //
-    // getGitUserDetails(id) {
-    //     this.httpService.getById('users');
-    // }
+
+    getUserDetail(id) {
+        return this.httpService.getById(id);
+    }
 }

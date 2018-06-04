@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators, FormGroup} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {GitUsersService} from './git-users.service';
 import {UserList} from '../shared/interface/user';
 
@@ -11,7 +11,17 @@ import {UserList} from '../shared/interface/user';
 })
 export class GitUsersComponent implements OnInit {
     userListForm: any;
-    userList;
+    userList: UserList;
+    repositories;
+
+    pendingList = [
+        'Method naming via jsDoc',
+        'Designing',
+        'Icons',
+        'input box round',
+        'unDefined check',
+        'Move static content to constant file',
+        'Details to Collapse when open'];
 
     public sortType = [
         {value: 'nameAsc', name: 'Name (A - Z)'},
@@ -31,7 +41,10 @@ export class GitUsersComponent implements OnInit {
     }
 
     getDetails(id) {
-
+        const _this = this;
+        this.gitUserService.getUserDetail(id).subscribe(function (resp) {
+            _this.repositories = resp;
+        });
     }
 
     getUsers() {
@@ -39,5 +52,42 @@ export class GitUsersComponent implements OnInit {
         this.gitUserService.getGitUsers(this.userListForm.value.searchCriteria).subscribe(function (resp) {
             _this.userList = resp;
         });
+    }
+
+    sort() { //Sorting can be easily done via lodash.... using inbuilt function as asked
+        switch (this.userListForm.value.sortList) {
+            case 'nameAsc':
+                this.userList.items = this.userList.items.sort(function (a, b) {
+                    if (a.login.toLowerCase() < b.login.toLowerCase()) {
+                        return -1;
+                    }
+                    if (a.login.toLowerCase() > b.login.toLowerCase()) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                break;
+            case 'nameDsc':
+                this.userList.items = this.userList.items.sort(function (a, b) {
+                    if (a.login.toLowerCase() < b.login.toLowerCase()) {
+                        return 1;
+                    }
+                    if (a.login.toLowerCase() > b.login.toLowerCase()) {
+                        return -1;
+                    }
+                    return 0;
+                });
+                break;
+            case 'rankAsc':
+                this.userList.items = this.userList.items.sort(function (a, b) {
+                    return (a.score - b.score);
+                });
+                break;
+            case 'rankDsc':
+                this.userList.items = this.userList.items.sort(function (a, b) {
+                    return (b.score - a.score);
+                });
+                break;
+        }
     }
 }
