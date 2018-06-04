@@ -18,7 +18,6 @@ export class HttpClientService {
     url1 = 'https://api.github.com/users/{username​}/repos';
 
     get(searchText): Observable<any> {
-        this.eventService.broadcast('loaderOn', true);
         return this.http.get(this.url + searchText);
     }
 

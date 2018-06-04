@@ -43,7 +43,6 @@ export class GitUsersComponent implements OnInit {
             const _this = this;
             this.gitUserService.getGitUsers(searchCriteria).subscribe(function (resp) {
                 _this.userList = resp;
-                _this.eventService.broadcast('loaderOn', false);
             });
         } else {
             // TODO : Add a alert or popup
