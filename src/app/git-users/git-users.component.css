@@ -12,11 +12,10 @@
     margin-right: 10px;
 }
 
-img {
+.image {
     width: 75px;
     height: 75px;
     border-radius: 37px;
-    /*margin: 10px;*/
 }
 
 h3 {
@@ -39,5 +38,10 @@ select {
 }
 
 .button-margin {
-    margin-left: 142px
+    margin-left: 142px;
+    margin-top: 2px;
+}
+
+pagination-controls {
+float: right;
 }

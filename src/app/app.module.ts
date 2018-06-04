@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {routing} from './app.routes';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {GitUsersService} from './git-users/git-users.service';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import {GitUsersService} from './git-users/git-users.service';
         BrowserAnimationsModule,
         routing,
         FormsModule,
+        NgxPaginationModule,
         ReactiveFormsModule],
     exports: [BrowserAnimationsModule],
     providers: [GitUsersService],
