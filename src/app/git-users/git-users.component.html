@@ -1,22 +1,25 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-light">
     <form class="form-inline center form-group" [formGroup]="userListForm" novalidate>
-        <div class="input-group">
-            <select placeholder="Sort By Name" formControlName="sortList"
-                    class="margin-right" (change)="sort()">
-                <option selected value="">Select</option>
-                <option *ngFor="let type of sortType" [value]="type.value">
-                    {{ type.name }}
-                </option>
-            </select>
-
-            <input type="text" class="form-control" placeholder="Search" formControlName="searchCriteria">
-            <div class="input-group-prepend">
-                <button class="input-group-text form-control" (click)="getUsers()">@</button>
+        <div class="row">
+            <div class="input-group mb-3">
+                <select placeholder="Sort By Name" formControlName="sortList"
+                        class="margin-right custom-select" (change)="sort()">
+                    <option selected value="">Select</option>
+                    <option *ngFor="let type of sortType" [value]="type.value">
+                        {{ type.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search" formControlName="searchCriteria"
+                       (keyup)="getUsers()">
+                <div class="input-group-append">
+                    <span class="input-group-text input-icons"><i class="fa fa-search" (click)="getUsers()"></i></span>
+                </div>
             </div>
         </div>
     </form>
 </nav>
-<br>
 
 <div class="center">
     <label *ngIf="userList?.total_count">Total results : </label>{{userList?.total_count}}
@@ -26,20 +29,24 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-3 col-md-3 col-sm-3 col-lg-3">
-                        <img src="{{user.avatar_url}}" alt="Photo of {{user.login}}" class="image">
+                        <img src="{{user.avatar_url}}" alt="Photo of {{user.login}}" class="image rounded-circle">
                     </div>
                     <div class="col-9 col-md-9 col-sm-9 col-lg-9">
-                        <div class="row">
-                            <h3>{{user.login}}</h3>
-                            Profile URL : {{user.url}}
+                        <div>
+                            <div class="row">
+                                <h3>{{user.login}}</h3>
+                            </div>
+                            <div class="row">
+                                Profile URL : {{user.url}}
+                            </div>
                         </div>
-                        <div class="row">
-                            <div>
+                        <div class="row margin-left">
+                            <div class="col-9 col-md-9 col-sm-9 col-lg-9">
                                 Type : {{user.type}}
                                 <br>
                                 Score : {{user.score}}
                             </div>
-                            <div>
+                            <div class="col-3 col-md-3 col-sm-3 col-lg-3">
                                 <button type="button" class="btn btn-outline-primary button-margin"
                                         data-toggle="collapse"
                                         (click)="getDetails(user.login)"
@@ -49,16 +56,18 @@
                                 </button>
                             </div>
                         </div>
+                    </div>
+                    <div class="row table-styling">
                         <div id="id_{{user.id}}" class="collapse row" data-parent="#accordion" aria-expanded="false">
-                            <table class="table table-striped table-responsive">
-                                <tbody>
-                                <tr *ngFor="let repo of repositories">
-                                    <td>{{repo.full_name}}</td>
-                                    <td>{{repo.language}}</td>
-                                </tr>
-                                <tr *ngIf="repositories?.length < 1">
-                                    <h4>No repositories</h4>
-                                </tr>
+                            <table class="table table-striped table-responsive-lg">
+                                <tbody >
+                                    <tr *ngFor="let repo of repositories">
+                                        <td class="table-padding-left">{{repo.full_name}}</td>
+                                        <td>{{repo.language}}</td>
+                                    </tr>
+                                    <tr *ngIf="repositories?.length < 1">
+                                        No repositories
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

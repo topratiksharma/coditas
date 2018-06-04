@@ -10,12 +10,12 @@
 
 .margin-right {
     margin-right: 10px;
+    margin-left: 10px;
 }
 
 .image {
     width: 75px;
     height: 75px;
-    border-radius: 37px;
 }
 
 h3 {
@@ -23,14 +23,13 @@ h3 {
 }
 
 input {
-    border-radius: 5px !important;
-    float: right;
-    margin-left: 65px;
+    margin-left: 118px;
 }
 
 select {
     width: 200px;
     padding-right: 50px;
+    font-size: 16px;
 }
 
 .margin-below {
@@ -38,10 +37,28 @@ select {
 }
 
 .button-margin {
-    margin-left: 142px;
+    /*margin-left: 181px;*/
     margin-top: 2px;
 }
 
 pagination-controls {
-float: right;
+    float: right;
+}
+
+.input-icons {
+    cursor: pointer;
+    background-color: white;
+}
+
+.table-padding-left {
+    padding-left: 116px;
+}
+
+.margin-left {
+    margin-left: 11px;
+}
+
+.table-styling {
+    margin-left: 25px;
+    word-wrap: break-word;
 }

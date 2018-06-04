@@ -1,6 +1,11 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {GitUsersComponent} from './git-users.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {GitUsersService} from './git-users.service';
+import {HttpClientServiceMock} from '../shared/httpClient/http-client.mock';
+import {HttpClientService} from '../shared/httpClient/http-client.service';
 
 describe('GitUsersComponent', () => {
     let component: GitUsersComponent;
@@ -8,9 +13,12 @@ describe('GitUsersComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [GitUsersComponent]
-        })
-            .compileComponents();
+            imports: [ReactiveFormsModule, NgxPaginationModule],
+            declarations: [GitUsersComponent],
+            providers: [
+                GitUsersService,
+                {provide: HttpClientService, useClass: HttpClientServiceMock}]
+        }).compileComponents();
     }));
 
     beforeEach(() => {

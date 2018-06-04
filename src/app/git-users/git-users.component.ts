@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {GitUsersService} from './git-users.service';
 import {UserList} from '../shared/interface/user';
-
+import {constant} from '../shared/constant';
+import {EventService} from '../shared/event/event.service';
 
 @Component({
     selector: 'app-git-users',
@@ -14,23 +15,11 @@ export class GitUsersComponent implements OnInit {
     userList: UserList;
     repositories;
 
-    pendingList = [
-        'Method naming via jsDoc',
-        'Designing',
-        'Icons',
-        'input box round',
-        'unDefined check',
-        'Move static content to constant file',
-        'Details to Collapse when open'];
-
-    public sortType = [
-        {value: 'nameAsc', name: 'Name (A - Z)'},
-        {value: 'nameDsc', name: 'Name (Z - A)'},
-        {value: 'rankAsc', name: 'Rank ↑'},
-        {value: 'rankDsc', name: 'Rank ↓'}];
+    sortType = constant.SORT_TYPE;
 
     constructor(private formBuilder: FormBuilder,
-                private gitUserService: GitUsersService) {
+                private gitUserService: GitUsersService,
+                private eventService: EventService) {
     }
 
     ngOnInit() {
@@ -41,6 +30,7 @@ export class GitUsersComponent implements OnInit {
     }
 
     getDetails(id) {
+        this.repositories = '';
         const _this = this;
         this.gitUserService.getUserDetail(id).subscribe(function (resp) {
             _this.repositories = resp;
@@ -48,15 +38,24 @@ export class GitUsersComponent implements OnInit {
     }
 
     getUsers() {
-        const _this = this;
-        this.gitUserService.getGitUsers(this.userListForm.value.searchCriteria).subscribe(function (resp) {
-            _this.userList = resp;
-        });
+        const searchCriteria = this.userListForm.value.searchCriteria;
+        if (searchCriteria) {
+            const _this = this;
+            this.gitUserService.getGitUsers(searchCriteria).subscribe(function (resp) {
+                _this.userList = resp;
+                _this.eventService.broadcast('loaderOn', false);
+            });
+        } else {
+            // TODO : Add a alert or popup
+        }
     }
 
-    sort() { //Sorting can be easily done via lodash.... using inbuilt function as asked
+    sort() { // Sorting can be done via lodash too.... using inbuilt function as asked
+        if (!this.userList) {
+            return;
+        }
         switch (this.userListForm.value.sortList) {
-            case 'nameAsc':
+            case constant.SORT_TYPE_VALUE.NAME_ASCENDING:
                 this.userList.items = this.userList.items.sort(function (a, b) {
                     if (a.login.toLowerCase() < b.login.toLowerCase()) {
                         return -1;
@@ -67,7 +66,7 @@ export class GitUsersComponent implements OnInit {
                     return 0;
                 });
                 break;
-            case 'nameDsc':
+            case constant.SORT_TYPE_VALUE.NAME_DESCENDING:
                 this.userList.items = this.userList.items.sort(function (a, b) {
                     if (a.login.toLowerCase() < b.login.toLowerCase()) {
                         return 1;
@@ -78,12 +77,12 @@ export class GitUsersComponent implements OnInit {
                     return 0;
                 });
                 break;
-            case 'rankAsc':
+            case constant.SORT_TYPE_VALUE.RANK_ASCENDING:
                 this.userList.items = this.userList.items.sort(function (a, b) {
                     return (a.score - b.score);
                 });
                 break;
-            case 'rankDsc':
+            case constant.SORT_TYPE_VALUE.RANK_DESCENDING:
                 this.userList.items = this.userList.items.sort(function (a, b) {
                     return (b.score - a.score);
                 });
